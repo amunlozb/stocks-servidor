@@ -1,8 +1,7 @@
 
-package com.amunlozb.stocksservidor.entities;
+package com.amunlozb.stocksservidor.entities.DTO;
 
 import java.util.List;
-import javax.xml.transform.Result;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -57,3 +56,4 @@ public class StockResponse {
     }
 
 }
+
