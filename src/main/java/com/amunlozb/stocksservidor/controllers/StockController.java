@@ -13,6 +13,7 @@ public class StockController {
 
     // Devuelve los detalles de un ticker específico (que se ha pedido como parámetro)
     @GetMapping("/{ticker}")
+
     public ResponseEntity<?> getTickerInfo(@PathVariable String ticker) {
         return stockService.findByName(ticker);
     }
