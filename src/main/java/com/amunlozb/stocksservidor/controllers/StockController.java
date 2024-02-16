@@ -17,7 +17,9 @@ public class StockController {
     @GetMapping("/{ticker}")
 
     public ResponseEntity<?> getTickerInfo(@PathVariable String ticker) {
+        // Devuelve el stock con el ticker especificado convertido a mi clase DTO StockResponse
         StockResponse respuesta = StockDataFetcher.fetchStockData(ticker);
+        // Lo devuelve como respuesta
         return ResponseEntity.ok(respuesta);
     }
 
