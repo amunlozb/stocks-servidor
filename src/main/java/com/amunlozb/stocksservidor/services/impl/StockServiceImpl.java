@@ -4,6 +4,7 @@ import com.amunlozb.stocksservidor.entities.Stock;
 import com.amunlozb.stocksservidor.repositories.StockRepository;
 import com.amunlozb.stocksservidor.services.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,5 +22,11 @@ public class StockServiceImpl implements StockService {
     @Override
     public Stock save(Stock stock) {
         return (stockRepository.save(stock));
+    }
+
+    @Override
+    public ResponseEntity<?> findByName(String ticker) {
+        Stock stock = stockRepository.findById(ticker).orElse(null);
+        return ResponseEntity.ok(stock);
     }
 }
