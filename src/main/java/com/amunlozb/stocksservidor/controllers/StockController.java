@@ -1,5 +1,7 @@
 package com.amunlozb.stocksservidor.controllers;
 
+import com.amunlozb.stocksservidor.entities.DTO.StockResponse;
+import com.amunlozb.stocksservidor.services.StockDataFetcher;
 import com.amunlozb.stocksservidor.services.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +17,8 @@ public class StockController {
     @GetMapping("/{ticker}")
 
     public ResponseEntity<?> getTickerInfo(@PathVariable String ticker) {
-        return stockService.findByName(ticker);
+        StockResponse respuesta = StockDataFetcher.fetchStockData(ticker);
+        return ResponseEntity.ok(respuesta);
     }
 
 }
