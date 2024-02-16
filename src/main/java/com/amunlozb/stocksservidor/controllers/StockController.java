@@ -1,6 +1,7 @@
 package com.amunlozb.stocksservidor.controllers;
 
 import com.amunlozb.stocksservidor.entities.DTO.StockResponse;
+import com.amunlozb.stocksservidor.entities.Stock;
 import com.amunlozb.stocksservidor.services.StockDataFetcher;
 import com.amunlozb.stocksservidor.services.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,9 @@ public class StockController {
     public ResponseEntity<?> getTickerInfo(@PathVariable String ticker) {
         // Devuelve el stock con el ticker especificado convertido a mi clase DTO StockResponse
         StockResponse respuesta = StockDataFetcher.fetchStockData(ticker);
+        Stock stock = new Stock(respuesta);
         // Lo devuelve como respuesta
-        return ResponseEntity.ok(respuesta);
-    }
+        return ResponseEntity.ok(stock);
 
+    }
 }
