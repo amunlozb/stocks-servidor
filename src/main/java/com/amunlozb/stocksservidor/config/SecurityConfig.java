@@ -2,6 +2,8 @@ package com.amunlozb.stocksservidor.config;
 
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
+import com.amunlozb.stocksservidor.entities.Auth.Role;
+import com.amunlozb.stocksservidor.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
