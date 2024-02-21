@@ -15,7 +15,7 @@ import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 
 
-@Entity
+@Entity(name = "Usuario")
 public class User implements UserDetails {
     private static final long serialVersionUID = 1L;
     @Getter
