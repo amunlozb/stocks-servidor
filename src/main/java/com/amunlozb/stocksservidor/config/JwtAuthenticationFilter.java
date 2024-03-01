@@ -26,22 +26,27 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private UserService userService;
     @Override
+    // Filtro que se ejecuta antes de cada petición
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response, @NonNull FilterChain filterChain)
             throws ServletException, IOException {
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
         final String userEmail;
+        // Si no hay token o no empieza por "Bearer ", se sigue con la petición
         if (StringUtils.isEmpty(authHeader) || !StringUtils.startsWith(authHeader, "Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
+        // Si hay token, se extrae el email del token y se comprueba si es válido
         jwt = authHeader.substring(7);
         userEmail = jwtService.extractUserName(jwt);
+        // Si el email es válido y no hay autenticación, se autentica al usuario
         if (StringUtils.isNotEmpty(userEmail)
                 && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userService.userDetailsService()
                     .loadUserByUsername(userEmail);
+            // Si el token es válido, se autentica al usuario
             if (jwtService.isTokenValid(jwt, userDetails)) {
                 SecurityContext context = SecurityContextHolder.createEmptyContext();
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
@@ -51,6 +56,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.setContext(context);
             }
         }
+        // Se sigue con la petición
         filterChain.doFilter(request, response);
     }
 }
