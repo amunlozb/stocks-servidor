@@ -23,6 +23,5 @@ public class StockController {
         Stock stock = new Stock(respuesta);
         // Lo devuelve como respuesta
         return ResponseEntity.ok(stock);
-
     }
 }
