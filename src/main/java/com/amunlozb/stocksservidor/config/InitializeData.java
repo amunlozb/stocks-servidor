@@ -29,8 +29,17 @@ public class InitializeData implements CommandLineRunner {
             stockService.save(stock1);
             stockService.save(stock2);
             System.out.println("Datos cargados correctamente.");
-            // Usuarios
-            // Usuario 2 - Rol ADMIN
+
+            // ---- Usuarios ----
+            // Usuario 1 - Rol USER
+            User usuario1 = new User();
+            usuario1.setFirstName("Alice");
+            usuario1.setLastName("Smith");
+            usuario1.setEmail("alice.smith@example.com");
+            usuario1.setPassword(passwordEncoder.encode("password123"));
+            usuario1.getRoles().add(Role.ROLE_USER);
+            userRepository.save(usuario1);
+           // Usuario 2 - Rol ADMIN
             User usuario2 = new User();
             usuario2.setFirstName("Bob");
             usuario2.setLastName("Smith");
