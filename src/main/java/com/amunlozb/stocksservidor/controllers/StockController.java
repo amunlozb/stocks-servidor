@@ -1,8 +1,10 @@
 package com.amunlozb.stocksservidor.controllers;
 
+import com.amunlozb.stocksservidor.entities.DTO.StockPriceResponse;
 import com.amunlozb.stocksservidor.entities.DTO.StockResponse;
 import com.amunlozb.stocksservidor.entities.Stock;
 import com.amunlozb.stocksservidor.services.StockDataFetcher;
+import com.amunlozb.stocksservidor.services.StockPriceFetcher;
 import com.amunlozb.stocksservidor.services.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +17,7 @@ public class StockController {
     private StockService stockService;
 
     // Devuelve los detalles de un ticker específico (que se ha pedido como parámetro)
-    @GetMapping("/{ticker}")
+    @GetMapping("/{ticker}/info")
 
     public ResponseEntity<?> getTickerInfo(@PathVariable String ticker) {
         // Devuelve el stock con el ticker especificado convertido a mi clase DTO StockResponse
@@ -23,5 +25,12 @@ public class StockController {
         Stock stock = new Stock(respuesta);
         // Lo devuelve como respuesta
         return ResponseEntity.ok(stock);
+    }
+
+    @GetMapping("/{ticker}/price")
+    // Devuelve el precio de un ticker específico (que se ha pedido como parámetro)
+    public ResponseEntity<?> getTickerPrice(@PathVariable String ticker) {
+        StockPriceResponse respuesta = StockPriceFetcher.fetchStockPrice(ticker);
+        return ResponseEntity.ok(respuesta);
     }
 }
