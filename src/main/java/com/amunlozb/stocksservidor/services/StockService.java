@@ -11,4 +11,6 @@ public interface StockService {
     Stock save(Stock stock);
 
     ResponseEntity<?> findByName(String ticker);
+
+    List<Stock> filtrarPorZona(String zona);
 }

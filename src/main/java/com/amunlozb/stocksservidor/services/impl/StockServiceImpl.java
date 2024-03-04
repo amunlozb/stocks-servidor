@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class StockServiceImpl implements StockService {
@@ -24,9 +25,20 @@ public class StockServiceImpl implements StockService {
         return (stockRepository.save(stock));
     }
 
+    // Devuelve el stock con el ticker especificado convertido a mi clase DTO StockResponse
     @Override
     public ResponseEntity<?> findByName(String ticker) {
         Stock stock = stockRepository.findById(ticker).orElse(null);
         return ResponseEntity.ok(stock);
+    }
+
+    // Basándose en las acciones guardadas en la base de datos, devuelve las que pertenecen a la zona (locale) especificada (us, cn, eu)
+    @Override
+    public List<Stock> filtrarPorZona(String zona) {
+        // Si la zona es us, cn o eu, devuelve las acciones de esa zona
+        if (Objects.equals(zona, "us") || Objects.equals(zona, "cn") || Objects.equals(zona, "eu")) {
+            return stockRepository.findByLocale(zona);
+        }
+        return null;
     }
 }

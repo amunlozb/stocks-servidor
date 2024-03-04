@@ -30,7 +30,16 @@ public class StockController {
     @GetMapping("/{ticker}/price")
     // Devuelve el precio de un ticker específico (que se ha pedido como parámetro)
     public ResponseEntity<?> getTickerPrice(@PathVariable String ticker) {
+        // Precio del stock con el ticker especificado convertido a mi clase DTO StockPriceResponse
         StockPriceResponse respuesta = StockPriceFetcher.fetchStockPrice(ticker);
+        // Lo devuelve como respuesta
         return ResponseEntity.ok(respuesta);
+    }
+
+    @GetMapping("filtrarPorZona/{zona}")
+    // Basándose en las acciones guardadas en la base de datos, devuelve las que pertenecen a la zona especificada
+    // No he hecho que consulte la API externa de polygon.io porque hacen falta demasiadas peticiones para obtener los resultados, y no tengo una cuenta premium.
+    public ResponseEntity<?> filtrarPorZona(@PathVariable String zona) {
+        return ResponseEntity.ok(stockService.filtrarPorZona(zona));
     }
 }
